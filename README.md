@@ -1,36 +1,36 @@
 # pr-release
 
-Keep track of the manual steps a pull request needs when its code reaches an environment, such as a data script, a backfill or a recalculation, so they are not forgotten at merge time.
+Tiene traccia dei passi manuali che una pull request richiede quando il suo codice arriva in un ambiente, come uno script sui dati, un backfill o un ricalcolo, così che al merge non vengano dimenticati.
 
-It is two short text files for your repo. Any coding agent, from any provider, can follow them.
+Sono due brevi file di testo da mettere nella repo. Li segue qualsiasi agente, di qualunque provider.
 
-## The problem
+## Il problema
 
-Sometimes a PR needs a script to run on the database, first on dev, then on prod. If that step is written only in the PR description, nobody sees it at merge time. Days later, when the same code reaches prod, nobody remembers it either.
+A volte una PR richiede di lanciare uno script sul database, prima su dev e poi su prod. Se il passo è scritto solo nella descrizione della PR, al merge nessuno lo vede. E giorni dopo, quando lo stesso codice arriva su prod, nessuno se lo ricorda.
 
-## How it works
+## Come funziona
 
-1. **The developer's agent declares the step.** If a PR needs a manual step, its agent adds a small file to `release-actions/` in the same PR. The file says in which environments the step runs, what to do and when.
-2. **The merger's agent flags it.** Before merging, the agent of whoever merges shows them the steps the PR brings. It also flags a file that is incomplete, or a step the PR needs but does not declare. The agent does not run anything on its own.
-3. **The person runs the steps,** or asks their agent to run them, after the deploy.
-4. **The step is ticked off with a comment** on the PR that added the file:
-   `Release action done on dev`, or `Release action pending on prod: <reason>`.
+1. **L'agente di chi sviluppa dichiara il passo.** Se la PR richiede un passo manuale, l'agente aggiunge nella stessa PR un piccolo file nella cartella `release-actions/`. Il file dice in quali ambienti va fatto il passo, cosa fare e quando.
+2. **L'agente di chi mergia lo segnala.** Prima del merge mostra alla persona i passi che la PR porta, e segnala se un file è incompleto o se alla PR serve un passo che non ha dichiarato. Non esegue niente di sua iniziativa.
+3. **La persona esegue i passi** dopo il deploy, oppure chiede al suo agente di eseguirli.
+4. **Il passo si smarca con un commento** sulla PR che ha aggiunto il file:
+   `Release action done on dev`, oppure `Release action pending on prod: <motivo>`.
 
-Promoting `develop` to `main` works the same way, even when it carries many PRs. Every action file that `develop` has and `main` does not is a step for prod.
+Quando si porta `develop` su `main` funziona allo stesso modo, anche se il rilascio contiene molte PR. Ogni file di azione che `develop` ha e `main` non ha ancora è un passo da fare su prod.
 
-Nothing in the repo changes after the merge. There are no checkboxes to tick and no commits on protected branches. Each PR keeps the history of its step across environments in its comments.
+Dopo il merge nella repo non cambia niente: niente caselle da spuntare, niente commit sui branch protetti. La storia di ogni passo, ambiente per ambiente, resta nei commenti della sua PR.
 
-## What goes in your repo
+## Cosa entra nella tua repo
 
 ```
-your-repo/
-├── AGENTS.md                      + the "Release actions" section
+la-tua-repo/
+├── AGENTS.md                      + la sezione "Release actions"
 └── release-actions/
-    ├── README.md                  the instructions for both roles
-    └── 482-recalculate-totals.md  an action, added by a PR when needed
+    ├── README.md                  le istruzioni per i due ruoli
+    └── 482-recalculate-totals.md  un'azione, aggiunta da una PR quando serve
 ```
 
-An action file looks like this:
+Un file di azione è fatto così:
 
 ```
 Environments: dev, prod
@@ -39,20 +39,22 @@ What to do: run `python scripts/recalculate_totals.py` (dry run), check the coun
 When: after this PR is deployed there and the other repo has published config version 12.
 ```
 
-## Install
+I file che finiscono nella repo sono in inglese, come di solito il resto del codice e della documentazione.
 
-Copy the contents of `template/` into the root of your repo:
+## Installazione
 
-1. `template/release-actions/README.md` goes to `release-actions/README.md`.
-2. `template/AGENTS.md` holds a "Release actions" section. If your repo already has an `AGENTS.md`, append the section to it instead of replacing the file.
-3. If you use a Claude Code version that reads only `CLAUDE.md`, add a `CLAUDE.md` containing `@AGENTS.md`.
+Copia il contenuto di `template/` nella radice della tua repo:
 
-## Files
+1. `template/release-actions/README.md` va in `release-actions/README.md`.
+2. `template/AGENTS.md` contiene la sezione "Release actions". Se la repo ha già un `AGENTS.md`, aggiungi la sezione in fondo invece di sostituire il file.
+3. Se usi una versione di Claude Code che legge solo `CLAUDE.md`, aggiungi un `CLAUDE.md` con dentro `@AGENTS.md`.
 
-| Path | What it is |
+## File
+
+| Percorso | Cos'è |
 | --- | --- |
-| `README.md` | This page: what the setup is, how it works, how to install it. |
-| `how-it-works.html` | A one-page explainer in Italian, with a step-by-step example. Download it and open it in a browser. |
-| `template/` | The only files you copy, laid out exactly as they go in your repo. |
-| `template/AGENTS.md` | The section to add to your `AGENTS.md`. It points agents to the instructions. |
-| `template/release-actions/README.md` | The instructions for developers and mergers. |
+| `README.md` | Questa pagina: cos'è il setup, come funziona, come si installa. |
+| `how-it-works.html` | Una pagina di spiegazione con un esempio passo per passo. Scaricala e aprila nel browser. |
+| `template/` | Gli unici file da copiare, disposti esattamente come vanno nella tua repo. |
+| `template/AGENTS.md` | La sezione da aggiungere al tuo `AGENTS.md`: indica agli agenti dove trovare le istruzioni. |
+| `template/release-actions/README.md` | Le istruzioni per chi sviluppa e per chi mergia. |

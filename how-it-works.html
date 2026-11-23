@@ -130,13 +130,13 @@ td:first-child { font-weight: 600; }
 
 <section>
   <div class="eyebrow">Cosa c'è nella repo</div>
-  <h2>Una cartella e due righe</h2>
-  <p>Il setup si installa una volta per repo: si aggiunge una cartella <code>release-actions/</code> con un README di istruzioni, e due righe nell'<code>AGENTS.md</code>. Da quel momento, ogni PR che ha bisogno di un passo manuale aggiunge un file in quella cartella.</p>
+  <h2>Una cartella e una sezione nell'AGENTS.md</h2>
+  <p>Il setup si installa una volta per repo: si aggiunge una cartella <code>release-actions/</code> con un README di istruzioni, e una breve sezione nell'<code>AGENTS.md</code>. I file sono in inglese, come di solito il resto della repo. Da quel momento, ogni PR che ha bisogno di un passo manuale aggiunge un file in quella cartella.</p>
 <pre class="tree">repo/
-├── AGENTS.md                         <span class="c">← + 2 righe: "se serve un passo manuale…", "se mergi…"</span>
+├── AGENTS.md                         <span class="c">← + la sezione "Release actions": "se serve un passo manuale…", "se mergi…"</span>
 └── release-actions/
     ├── README.md                     <span class="c">← le istruzioni per i due ruoli (installato una volta)</span>
-    ├── <span class="new">482-recalculate-totals.md</span>        <span class="c">← creato dall'agente dello sviluppatore nella PR del task 482</span>
+    ├── <span class="new">482-recalculate-totals.md</span>     <span class="c">← creato dall'agente dello sviluppatore nella PR del task 482</span>
     └── <span class="new">495-backfill-history.md</span>       <span class="c">← creato nella PR del task 495</span></pre>
   <p class="note">I file delle azioni non si modificano e non si cancellano: restano nella cartella. Chi mergia guarda solo quelli nuovi della PR che sta mergiando.</p>
 </section>
@@ -152,7 +152,7 @@ td:first-child { font-weight: 600; }
       <tbody>
         <tr>
           <td>Istruzioni<br><span class="kind file">file</span></td>
-          <td><code>release-actions/README.md</code> e due righe in <code>AGENTS.md</code></td>
+          <td><code>release-actions/README.md</code> e una sezione in <code>AGENTS.md</code></td>
           <td>Chi installa il setup</td>
           <td>Una volta per repo. Gli agenti le leggono solo quando servono.</td>
         </tr>
