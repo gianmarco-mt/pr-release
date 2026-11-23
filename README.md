@@ -67,7 +67,6 @@ Copia il contenuto di `template/` nella radice della tua repo:
 
 1. `template/release-actions/README.md` va in `release-actions/README.md`.
 2. `template/AGENTS.md` contiene la sezione "Release actions". Se la repo ha già un `AGENTS.md`, aggiungi la sezione in fondo invece di sostituire il file.
-3. Se usi una versione di Claude Code che legge solo `CLAUDE.md`, aggiungi un `CLAUDE.md` con dentro `@AGENTS.md`.
 
 ```
 template/
