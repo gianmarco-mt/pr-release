@@ -24,7 +24,7 @@ Nothing in the repo changes after the merge. There are no checkboxes to tick and
 
 ```
 your-repo/
-├── AGENTS.md                      + the two lines from agents-md-snippet.md
+├── AGENTS.md                      + the "Release actions" section
 └── release-actions/
     ├── README.md                  the instructions for both roles
     └── 482-recalculate-totals.md  an action, added by a PR when needed
@@ -41,14 +41,18 @@ When: after this PR is deployed there and the other repo has published config ve
 
 ## Install
 
-1. Copy `release-actions/README.md` to a `release-actions/` folder at the root of your repo.
-2. Add the lines of `agents-md-snippet.md` to your repo's `AGENTS.md`.
-3. Claude Code with a version that reads only `CLAUDE.md`: add a `CLAUDE.md` containing `@AGENTS.md`.
+Copy the contents of `template/` into the root of your repo:
+
+1. `template/release-actions/README.md` goes to `release-actions/README.md`.
+2. `template/AGENTS.md` holds a "Release actions" section. If your repo already has an `AGENTS.md`, append the section to it instead of replacing the file.
+3. If you use a Claude Code version that reads only `CLAUDE.md`, add a `CLAUDE.md` containing `@AGENTS.md`.
 
 ## Files
 
-| File | What it is |
+| Path | What it is |
 | --- | --- |
-| `release-actions/README.md` | Instructions for developers and mergers. It is copied into your repo. |
-| `agents-md-snippet.md` | Two lines for `AGENTS.md` that point agents to the instructions. |
-| `docs/how-it-works.html` | A one-page explainer in Italian, with a step-by-step example. Download it and open it in a browser. |
+| `README.md` | This page: what the setup is, how it works, how to install it. |
+| `how-it-works.html` | A one-page explainer in Italian, with a step-by-step example. Download it and open it in a browser. |
+| `template/` | The only files you copy, laid out exactly as they go in your repo. |
+| `template/AGENTS.md` | The section to add to your `AGENTS.md`. It points agents to the instructions. |
+| `template/release-actions/README.md` | The instructions for developers and mergers. |
